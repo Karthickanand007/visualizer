@@ -1,7 +1,798 @@
-<h1>Visualizer Collection</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Dictionary Technical Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<ul>
-  <li><a href="./operators/index.html">Visualizer 1</a></li>
-  <li><a href="./dictionary/index.html">Visualizer 2</a></li>
-  <li><a href="./visu/index.html">Visualizer 3</a></li>
-</ul>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .presentation {
+            background: #2a2a3e;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #3a3a4e;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+            padding: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #bfdbfe;
+        }
+
+        .slide-content {
+            padding: 2rem;
+            min-height: 500px;
+        }
+
+        .slide-title {
+            font-size: 1.75rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #3a3a4e;
+        }
+
+        .info-box {
+            background: #1f1f2e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .info-box h3 {
+            color: #60a5fa;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .info-box p {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .code-container {
+            background: #0f0f1e;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .code-header {
+            background: #1f1f2e;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3a3a4e;
+        }
+
+        .code-label {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            font-family: monospace;
+        }
+
+        .run-button {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .run-button:hover {
+            background: #15803d;
+        }
+
+        pre {
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .python-code {
+            color: #4ade80;
+        }
+
+        .output-code {
+            color: #fbbf24;
+        }
+
+        .explanation-box {
+            background: rgba(37, 99, 235, 0.15);
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .explanation-box p {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .advantages-box {
+            background: rgba(22, 163, 74, 0.15);
+            border-left: 4px solid #16a34a;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .advantages-box h3 {
+            color: #4ade80;
+            margin-bottom: 0.5rem;
+        }
+
+        .disadvantages-box {
+            background: rgba(220, 38, 38, 0.15);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .disadvantages-box h3 {
+            color: #f87171;
+            margin-bottom: 0.5rem;
+        }
+
+        ul {
+            list-style-position: inside;
+            color: #d1d5db;
+            line-height: 1.8;
+        }
+
+        .footer {
+            background: #1f1f2e;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #3a3a4e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: #6b7280;
+        }
+
+        .nav-button:disabled {
+            background: #1f1f2e;
+            color: #4b5563;
+            cursor: not-allowed;
+        }
+
+        .nav-button.next {
+            background: #2563eb;
+        }
+
+        .nav-button.next:hover:not(:disabled) {
+            background: #1e40af;
+        }
+
+        .slide-counter {
+            color: #9ca3af;
+        }
+
+        .indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4b5563;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .indicator:hover {
+            background: #6b7280;
+        }
+
+        .indicator.active {
+            background: #3b82f6;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .use-cases-positive {
+            background: rgba(22, 163, 74, 0.15);
+            border-left: 4px solid #16a34a;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .use-cases-positive h3 {
+            color: #4ade80;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-cases-negative {
+            background: rgba(220, 38, 38, 0.15);
+            border-left: 4px solid #dc2626;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .use-cases-negative h3 {
+            color: #f87171;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="presentation">
+            <div class="header">
+                <h1>Python Dictionary Technical Reference</h1>
+                <p>Comprehensive Guide to Dictionary Data Structure</p>
+            </div>
+
+            <div class="slide-content" id="slideContent"></div>
+
+            <div class="footer">
+                <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">
+                    ← Previous
+                </button>
+                <div class="slide-counter" id="slideCounter"></div>
+                <button class="nav-button next" id="nextBtn" onclick="changeSlide(1)">
+                    Next →
+                </button>
+            </div>
+        </div>
+
+        <div class="indicators" id="indicators"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const outputs = {};
+
+        const slides = [
+            {
+                title: "Python Dictionary Overview",
+                type: "content",
+                html: `
+                    <div class="info-box">
+                        <h3>Definition</h3>
+                        <p>A dictionary is an unordered, mutable collection of key-value pairs. Keys must be immutable and hashable. Implemented as hash tables for O(1) average-case lookup, insertion, and deletion.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>Real-World Example</h3>
+                        <div class="code-container">
+                            <pre class="python-code"># Student Management System
+student_db = {
+    "S001": {
+        "name": "Alice Johnson",
+        "age": 20,
+        "gpa": 3.8,
+        "courses": ["CS101", "MATH201"]
+    },
+    "S002": {
+        "name": "Bob Smith",
+        "age": 22,
+        "gpa": 3.6,
+        "courses": ["CS102", "PHY101"]
+    }
+}</pre>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Dictionary Creation Methods",
+                type: "code",
+                explanation: "Five primary methods to create dictionaries. Literal syntax is most common. Dictionary comprehension offers concise generation from iterables. fromkeys() initializes multiple keys with the same value.",
+                pythonCode: `# Method 1: Literal Syntax
+dict1 = {"name": "John", "age": 30}
+
+# Method 2: dict() Constructor
+dict2 = dict(name="Jane", age=25)
+
+# Method 3: From Tuples
+dict3 = dict([("city", "NYC"), ("zip", "10001")])
+
+# Method 4: Dictionary Comprehension
+dict4 = {x: x**2 for x in range(5)}
+
+# Method 5: fromkeys()
+dict5 = dict.fromkeys(["a", "b", "c"], 0)
+
+print("Literal:", dict1)
+print("Constructor:", dict2)
+print("From Tuples:", dict3)
+print("Comprehension:", dict4)
+print("Fromkeys:", dict5)`,
+                output: `Literal: {'name': 'John', 'age': 30}
+Constructor: {'name': 'Jane', 'age': 25}
+From Tuples: {'city': 'NYC', 'zip': '10001'}
+Comprehension: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+Fromkeys: {'a': 0, 'b': 0, 'c': 0}`
+            },
+            {
+                title: "get() and setdefault()",
+                type: "code",
+                explanation: "get() returns None or default without raising KeyError. setdefault() returns value if key exists, otherwise sets and returns the default value. Critical for avoiding KeyError exceptions.",
+                pythonCode: `inventory = {"apple": 50, "banana": 30}
+
+# get() - Safe key access
+apple_count = inventory.get("apple")
+orange_count = inventory.get("orange", 0)  # default value
+
+# setdefault() - Get or set if missing
+mango_count = inventory.setdefault("mango", 25)
+apple_recheck = inventory.setdefault("apple", 100)  # won't change
+
+print("Apple count:", apple_count)
+print("Orange count:", orange_count)
+print("Mango (new):", mango_count)
+print("Apple (existing):", apple_recheck)
+print("Final inventory:", inventory)`,
+                output: `Apple count: 50
+Orange count: 0
+Mango (new): 25
+Apple (existing): 50
+Final inventory: {'apple': 50, 'banana': 30, 'mango': 25}`
+            },
+            {
+                title: "update() and Merging",
+                type: "code",
+                explanation: "update() modifies dictionary in-place with key-value pairs from another dict. Later values override earlier ones. Unpacking (**) and union (|) operators create new merged dictionaries.",
+                pythonCode: `config = {"debug": True, "timeout": 30}
+updates = {"timeout": 60, "retries": 3}
+
+# update() - Merge dictionaries
+config.update(updates)
+print("After update():", config)
+
+# Dictionary unpacking (Python 3.5+)
+dict1 = {"a": 1, "b": 2}
+dict2 = {"b": 3, "c": 4}
+merged = {**dict1, **dict2}
+print("Unpacking merge:", merged)
+
+# Union operator (Python 3.9+)
+union = dict1 | dict2
+print("Union operator:", union)`,
+                output: `After update(): {'debug': True, 'timeout': 60, 'retries': 3}
+Unpacking merge: {'a': 1, 'b': 3, 'c': 4}
+Union operator: {'a': 1, 'b': 3, 'c': 4}`
+            },
+            {
+                title: "pop() and popitem()",
+                type: "code",
+                explanation: "pop(key) removes and returns value for key, raises KeyError if missing unless default provided. popitem() removes and returns last inserted item as tuple (LIFO since Python 3.7+). Both modify dictionary in-place.",
+                pythonCode: `cache = {"user1": "data1", "user2": "data2", "user3": "data3"}
+
+# pop() - Remove specific key
+removed_value = cache.pop("user2")
+print("Popped value:", removed_value)
+print("After pop():", cache)
+
+# pop() with default
+safe_pop = cache.pop("user99", "Not Found")
+print("Safe pop:", safe_pop)
+
+# popitem() - Remove last inserted (LIFO in 3.7+)
+last_item = cache.popitem()
+print("Popped item:", last_item)
+print("Final cache:", cache)`,
+                output: `Popped value: data2
+After pop(): {'user1': 'data1', 'user3': 'data3'}
+Safe pop: Not Found
+Popped item: ('user3', 'data3')
+Final cache: {'user1': 'data1'}`
+            },
+            {
+                title: "keys(), values(), items()",
+                type: "code",
+                explanation: "These methods return dictionary view objects that dynamically reflect changes. keys() for key iteration, values() for value iteration, items() for key-value pair iteration. Views are memory-efficient and provide set-like operations.",
+                pythonCode: `products = {"laptop": 1200, "mouse": 25, "keyboard": 75}
+
+# keys() - Returns view of keys
+keys = products.keys()
+print("Keys:", list(keys))
+
+# values() - Returns view of values
+values = products.values()
+print("Values:", list(values))
+
+# items() - Returns view of (key, value) tuples
+items = products.items()
+print("Items:", list(items))
+
+# Iteration example
+print("\\nFormatted output:")
+for name, p in products.items():
+    print(f"  {name}: $" + str(p))`,
+                output: `Keys: ['laptop', 'mouse', 'keyboard']
+Values: [1200, 25, 75]
+Items: [('laptop', 1200), ('mouse', 25), ('keyboard', 75)]
+
+Formatted output:
+  laptop: $1200
+  mouse: $25
+  keyboard: $75`
+            },
+            {
+                title: "clear() and copy()",
+                type: "code",
+                explanation: "copy() creates shallow copy - new dict with same references. Modifications to mutable nested objects affect both. clear() removes all items in-place. For deep copying nested structures, use copy.deepcopy().",
+                pythonCode: `original = {"x": 10, "y": 20, "z": 30}
+
+# copy() - Shallow copy
+backup = original.copy()
+backup["x"] = 999
+print("Original:", original)
+print("Backup:", backup)
+
+# clear() - Remove all items
+temp = {"a": 1, "b": 2}
+print("Before clear:", temp)
+temp.clear()
+print("After clear:", temp)
+
+# Nested structure caveat
+nested = {"data": {"value": 100}}
+shallow = nested.copy()
+shallow["data"]["value"] = 200
+print("\\nOriginal nested:", nested)  # Also changed!`,
+                output: `Original: {'x': 10, 'y': 20, 'z': 30}
+Backup: {'x': 999, 'y': 20, 'z': 30}
+Before clear: {'a': 1, 'b': 2}
+After clear: {}
+
+Original nested: {'data': {'value': 200}}`
+            },
+            {
+                title: "Dictionary Comprehension Advanced",
+                type: "code",
+                explanation: "Dictionary comprehension syntax: {key_expr: value_expr for item in iterable if condition}. Enables filtering with conditionals, nested dict creation, and key-value transformations. More concise than traditional loops.",
+                pythonCode: `# Filter and transform
+numbers = {"a": 1, "b": 2, "c": 3, "d": 4}
+evens = {k: v*2 for k, v in numbers.items() if v % 2 == 0}
+
+# Nested comprehension
+matrix = {
+    f"row{i}": {f"col{j}": i*j for j in range(3)}
+    for i in range(3)
+}
+
+# Swap keys and values
+original = {"name": "Alice", "role": "Engineer"}
+swapped = {v: k for k, v in original.items()}
+
+print("Even numbers doubled:", evens)
+print("Matrix:", matrix)
+print("Swapped:", swapped)`,
+                output: `Even numbers doubled: {'b': 4, 'd': 8}
+Matrix: {'row0': {'col0': 0, 'col1': 0, 'col2': 0}, 'row1': {'col0': 0, 'col1': 1, 'col2': 2}, 'row2': {'col0': 0, 'col1': 2, 'col2': 4}}
+Swapped: {'Alice': 'name', 'Engineer': 'role'}`
+            },
+            {
+                title: "in Operator and Membership",
+                type: "code",
+                explanation: "The 'in' operator checks key existence in O(1) average time due to hash table implementation. More efficient than try-except for existence checks. Only checks keys, not values. Use 'not in' for negative checks.",
+                pythonCode: `user_permissions = {
+    "admin": ["read", "write", "delete"],
+    "user": ["read"],
+    "guest": ["read"]
+}
+
+# Check key existence
+has_admin = "admin" in user_permissions
+has_superuser = "superuser" in user_permissions
+
+print("Has admin:", has_admin)
+print("Has superuser:", has_superuser)
+
+# not in operator
+no_guest = "moderator" not in user_permissions
+print("No moderator:", no_guest)
+
+# Efficient O(1) lookup
+if "user" in user_permissions:
+    print("User permissions:", user_permissions["user"])`,
+                output: `Has admin: True
+Has superuser: False
+No moderator: True
+User permissions: ['read']`
+            },
+            {
+                title: "len() and bool()",
+                type: "code",
+                explanation: "len() returns number of key-value pairs in O(1) time. Empty dictionaries evaluate to False in boolean context, non-empty to True. Useful for conditional logic and validation without explicit length checks.",
+                pythonCode: `# len() - Count key-value pairs
+small_dict = {"a": 1}
+large_dict = {"x": 1, "y": 2, "z": 3, "w": 4}
+empty_dict = {}
+
+print("Small dict length:", len(small_dict))
+print("Large dict length:", len(large_dict))
+print("Empty dict length:", len(empty_dict))
+
+# bool() - Truthiness check
+if large_dict:
+    print("Large dict is truthy")
+
+if not empty_dict:
+    print("Empty dict is falsy")
+
+# Practical use
+config = {}
+status = "configured" if config else "not configured"
+print("Status:", status)`,
+                output: `Small dict length: 1
+Large dict length: 4
+Empty dict length: 0
+Large dict is truthy
+Empty dict is falsy
+Status: not configured`
+            },
+            {
+                title: "Advantages of Dictionaries",
+                type: "content",
+                html: `
+                    <div class="advantages-box">
+                        <h3>Performance</h3>
+                        <ul>
+                            <li>O(1) average-case lookup, insertion, deletion via hash tables</li>
+                            <li>Faster than list search for large datasets</li>
+                        </ul>
+                    </div>
+                    <div class="advantages-box">
+                        <h3>Flexibility</h3>
+                        <ul>
+                            <li>Keys can be any immutable type (strings, numbers, tuples)</li>
+                            <li>Values can be any type including nested structures</li>
+                        </ul>
+                    </div>
+                    <div class="advantages-box">
+                        <h3>Readability</h3>
+                        <ul>
+                            <li>Self-documenting key names improve code clarity</li>
+                            <li>Natural representation of real-world entities</li>
+                        </ul>
+                    </div>
+                    <div class="advantages-box">
+                        <h3>Built-in Methods</h3>
+                        <ul>
+                            <li>Rich set of methods for manipulation and traversal</li>
+                            <li>View objects for memory-efficient iteration</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                title: "Disadvantages of Dictionaries",
+                type: "content",
+                html: `
+                    <div class="disadvantages-box">
+                        <h3>Memory Overhead</h3>
+                        <ul>
+                            <li>Higher memory consumption than lists due to hash table structure</li>
+                            <li>Not suitable for memory-constrained environments with large datasets</li>
+                        </ul>
+                    </div>
+                    <div class="disadvantages-box">
+                        <h3>Ordering Guarantees</h3>
+                        <ul>
+                            <li>Insertion order preserved only since Python 3.7+</li>
+                            <li>Don't rely on order for older Python versions</li>
+                        </ul>
+                    </div>
+                    <div class="disadvantages-box">
+                        <h3>Key Restrictions</h3>
+                        <ul>
+                            <li>Keys must be immutable (no lists or dicts as keys)</li>
+                            <li>Keys must be hashable, limiting type choices</li>
+                        </ul>
+                    </div>
+                    <div class="disadvantages-box">
+                        <h3>Worst-Case Performance</h3>
+                        <ul>
+                            <li>O(n) worst-case due to hash collisions (rare but possible)</li>
+                            <li>Performance degradation with poor hash functions</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                title: "Applications of Dictionaries",
+                type: "content",
+                html: `
+                    <div class="info-box">
+                        <h3>1. Caching and Memoization</h3>
+                        <p>Store computed results with input as key for O(1) retrieval, avoiding redundant calculations.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>2. Database Records</h3>
+                        <p>Represent database rows/documents with field names as keys, values as data.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>3. Configuration Management</h3>
+                        <p>Store application settings, feature flags, and environment-specific parameters.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>4. Counting and Frequency Analysis</h3>
+                        <p>Track occurrences of items (word count, event logging, histogram generation).</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>5. Graph Representation</h3>
+                        <p>Adjacency lists for graph data structures where keys are nodes, values are neighbor lists.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>6. JSON/API Data Handling</h3>
+                        <p>Natural mapping for JSON objects in REST API responses and requests.</p>
+                    </div>
+                `
+            },
+            {
+                title: "When to Use Dictionaries",
+                type: "content",
+                html: `
+                    <div class="use-cases-positive">
+                        <h3>Use Dictionaries When:</h3>
+                        <ul>
+                            <li>You need fast lookups by key (O(1) average)</li>
+                            <li>Data naturally represents key-value relationships</li>
+                            <li>You need to check membership frequently</li>
+                            <li>Keys are meaningful identifiers (user IDs, product codes)</li>
+                            <li>You want to eliminate duplicates (keys are unique)</li>
+                            <li>You need to count or aggregate by category</li>
+                            <li>You're working with JSON-like data structures</li>
+                        </ul>
+                    </div>
+                    <div class="use-cases-negative">
+                        <h3>Don't Use Dictionaries When:</h3>
+                        <ul>
+                            <li>You need ordered sequences with positional indexing (use list)</li>
+                            <li>Memory is extremely constrained and you have large datasets</li>
+                            <li>You need all elements to be same type (use array/list)</li>
+                            <li>You need range-based queries (use sorted list/tree)</li>
+                            <li>You only need unique values without associated data (use set)</li>
+                            <li>You need mutable keys (impossible - use wrapper object)</li>
+                        </ul>
+                    </div>
+                `
+            }
+        ];
+
+        function renderSlide(index) {
+            const slide = slides[index];
+            const content = document.getElementById('slideContent');
+            
+            let html = `<h2 class="slide-title">${slide.title}</h2>`;
+            
+            if (slide.type === 'content') {
+                html += slide.html;
+            } else if (slide.type === 'code') {
+                html += `
+                    <div class="explanation-box">
+                        <p>${slide.explanation}</p>
+                    </div>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="code-label">Python Code</span>
+                            <button class="run-button" onclick="showOutput(${index})">▶ Run</button>
+                        </div>
+                        <pre class="python-code">${slide.pythonCode}</pre>
+                    </div>
+                    <div id="output-${index}" class="hidden">
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="code-label">Output</span>
+                            </div>
+                            <pre class="output-code">${slide.output}</pre>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = html;
+            updateNavigation();
+            updateIndicators();
+        }
+
+        function showOutput(index) {
+            const outputDiv = document.getElementById(`output-${index}`);
+            if (outputDiv) {
+                outputDiv.classList.remove('hidden');
+            }
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < slides.length) {
+                currentSlide = newSlide;
+                renderSlide(currentSlide);
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            renderSlide(currentSlide);
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+            document.getElementById('slideCounter').textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+        }
+
+        function updateIndicators() {
+            const container = document.getElementById('indicators');
+            container.innerHTML = '';
+            
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('button');
+                indicator.className = 'indicator' + (index === currentSlide ? ' active' : '');
+                indicator.onclick = () => goToSlide(index);
+                container.appendChild(indicator);
+            });
+        }
+
+        // Initialize
+        renderSlide(0);
+    </script>
+</body>
+</html>
